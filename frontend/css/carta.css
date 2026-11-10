@@ -1,0 +1,123 @@
+/* ============================================================
+   COLRIENT — Carta digital (interfaz del cliente)
+   Estilos propios sobre Bootstrap 5; complementa css/styles.css
+   ============================================================ */
+
+/* --- Barra de navegación y pie: paleta institucional ----------------- */
+.carta-navbar {
+    background: var(--colrient-oscuro);
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--colrient-rojo) 0%, var(--colrient-oscuro) 100%);
+}
+
+.carta-vigente-badge {
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5em 0.9em;
+}
+
+.carta-footer {
+    background: var(--colrient-oscuro);
+}
+
+/* --- Barra de filtros: fija al hacer scroll -------------------------- */
+.filtros-bar {
+    background: #fff;
+    border: 1px solid #e6e1d9;
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem 0.6rem;
+    margin-top: -1.4rem;               /* se solapa con el hero */
+    position: sticky;
+    top: 4.2rem;
+    z-index: 10;
+    box-shadow: 0 0.4rem 0.9rem rgba(36, 29, 27, 0.07);
+}
+
+/* --- Títulos de sección ---------------------------------------------- */
+.section-title {
+    border-bottom: 2px solid #e6e1d9;
+    padding-bottom: 0.4rem;
+}
+
+/* --- Tarjetas del catálogo ------------------------------------------- */
+.carta-card {
+    border: 1px solid #e6e1d9;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.carta-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.6rem 1.1rem rgba(36, 29, 27, 0.14);
+}
+
+.carta-foto {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+    background: var(--colrient-gris);
+}
+
+.carta-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carta-agotado {
+    opacity: 0.55;
+}
+
+/* --- Descripción breve: máximo dos líneas ---------------------------- */
+.carta-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.6em;
+}
+
+/* --- Fila de recomendados: desplazamiento horizontal ----------------- */
+.carta-scroll {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carta-scroll > * {
+    flex: 0 0 16rem;
+    scroll-snap-align: start;
+}
+
+/* --- Estados del servidor ------------------------------------------- */
+
+/* --- Detalle del plato (modal de la carta) ----------------------------- */
+.carta-detalle-foto {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #fff;
+}
+
+/* --- Responsive: tablets y móviles ------------------------------------ */
+@media (max-width: 991.98px) {
+    .filtros-bar {
+        position: static;            /* en pantallas menores no es fija */
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero .display-6 {
+        font-size: 1.35rem;
+    }
+
+    .carta-scroll > * {
+        flex-basis: 13rem;           /* cards más compactas en móvil */
+    }
+}

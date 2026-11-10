@@ -1,0 +1,25 @@
+# =====================================================================
+# COLRIENT - Sistema de gestión | Backend (FastAPI)
+# Instalación:  pip install -r requirements.txt
+# =====================================================================
+
+# Framework web para construir la API REST (rutas, validación, docs)
+fastapi>=0.115.0
+
+# Servidor ASGI para ejecutar la aplicación: uvicorn main:app --reload
+uvicorn[standard]>=0.32.0
+
+# ORM para modelos, sesiones y acceso a la base de datos
+sqlalchemy>=2.0.0
+
+# Validación de datos y serialización (esquemas de entrada/salida)
+pydantic>=2.9.0
+
+# Parseo de formularios y subida de archivos (fotos de los platos)
+python-multipart>=0.0.12
+
+# ---------------------------------------------------------------------
+# Dependencias de desarrollo (opcionales, solo para pruebas)
+# ---------------------------------------------------------------------
+# pytest
+# httpx

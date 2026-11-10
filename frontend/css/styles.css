@@ -1,0 +1,154 @@
+/* ============================================================
+   COLRIENT — Panel administrativo
+   Estilos propios sobre Bootstrap 5
+   ============================================================ */
+
+:root {
+    --colrient-rojo: #b3261e;
+    --colrient-oscuro: #241d1b;
+    --colrient-gris: #f6f4f0;
+}
+
+/* --- Distribución general: barra lateral + contenido --------------- */
+.app-wrapper {
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--colrient-oscuro);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar-brand i {
+    color: var(--colrient-rojo);
+    font-size: 1.35rem;
+}
+
+.sidebar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.95rem;
+}
+
+.sidebar-nav .nav-link i {
+    margin-right: 0.5rem;
+}
+
+.sidebar-nav .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-nav .nav-link.active {
+    color: #fff;
+    background: var(--colrient-rojo);
+}
+
+.sidebar-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.sidebar-footer small {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.contenido {
+    flex-grow: 1;
+    min-width: 0;                 /* permite que las tablas se compriman */
+    background: var(--colrient-gris);
+    padding: 1.25rem 1.5rem 3rem;
+}
+
+.topbar {
+    background: #fff;
+    border: 1px solid #e6e1d9;
+    border-radius: 0.75rem;
+    padding: 0.9rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+/* --- Badges de categoría y región ---------------------------------- */
+.badge-categoria {
+    background: #efe3d0;          /* beige cálido */
+    color: #6b4f2a;
+}
+
+.badge-region {
+    background: #dcebe3;          /* verde suave */
+    color: #2e5d43;
+}
+
+.badge-horario {
+    background: #e8e0f5;          /* violeta suave */
+    color: #55418a;
+}
+
+/* --- Miniaturas y vista previa de fotos ---------------------------- */
+.foto-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 0.4rem;
+}
+
+.foto-preview {
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+    background: #fff;
+    padding: 0.25rem;
+}
+
+/* --- Estados del servidor ------------------------------------------- */
+.badge-servidor-ok {
+    background: #2e7d32 !important;
+}
+
+/* --- Botones de acción en tablas ------------------------------------ */
+.btn-accion {
+    --bs-btn-padding-y: 0.15rem;
+    --bs-btn-padding-x: 0.45rem;
+}
+
+/* --- Responsive: la barra lateral se colapsa arriba ----------------- */
+@media (max-width: 767.98px) {
+    .app-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .sidebar-nav {
+        flex-direction: row !important;
+        overflow-x: auto;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+}

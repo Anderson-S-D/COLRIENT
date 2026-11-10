@@ -1,0 +1,28 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Bytecode de Python
+__pycache__/
+*.py[cod]
+
+# Base de datos local (SQLite)
+*.db
+*.sqlite3
+
+# Fotos subidas por los usuarios (se generan en tiempo de ejecución)
+backend/uploads/
+
+# Variables de entorno
+.env
+
+# Pruebas y cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs y sistema operativo
+.idea/
+.vscode/
+.DS_Store

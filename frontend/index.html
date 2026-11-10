@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COLRIENT | Panel administrativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- ===================== BARRA LATERAL ===================== -->
+        <aside class="sidebar d-flex flex-column">
+            <div class="sidebar-brand">
+                <i class="bi bi-egg-fried"></i>
+                <span>COLRIENT</span>
+            </div>
+
+            <nav class="nav sidebar-nav flex-column gap-1 px-2">
+                <a class="nav-link active" href="#" data-section="platos">
+                    <i class="bi bi-menu-app"></i> Gestión de Platos
+                </a>
+                <a class="nav-link" href="#" data-section="recetas">
+                    <i class="bi bi-basket"></i> Recetas / Ingredientes
+                </a>
+                <a class="nav-link" href="#" data-section="menus">
+                    <i class="bi bi-journal-text"></i> Gestión del Menú
+                </a>
+            </nav>
+
+            <div class="sidebar-footer mt-auto px-3 py-3">
+                <small class="d-block text-body-secondary">
+                    Estado del servidor:
+                    <span id="badge-servidor" class="badge text-bg-secondary ms-1">…</span>
+                </small>
+                <small class="text-body-secondary">COLRIENT v0.1.0 · Panel administrativo</small>
+            </div>
+        </aside>
+
+        <!-- ===================== CONTENIDO ===================== -->
+        <main class="contenido">
+            <header class="topbar d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                    <h1 class="h4 mb-0" id="titulo-seccion">Gestión de Platos</h1>
+                    <small class="text-body-secondary" id="subtitulo-seccion">
+                        Administración de la carta de platos del restaurante
+                    </small>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="btn btn-sm btn-outline-secondary" href="carta.html"
+                       title="Ver la carta digital pública">
+                        <i class="bi bi-shop-window me-1"></i>Carta digital
+                    </a>
+                    <label for="select-rol" class="small text-body-secondary mb-0">Rol:</label>
+                    <select id="select-rol" class="form-select form-select-sm w-auto">
+                        <option value="gerente">Gerente</option>
+                        <option value="cocinero">Cocinero</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- ============ SECCIÓN: PLATOS ============ -->
+            <section id="seccion-platos" class="seccion">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-table me-1"></i>Listado de platos</span>
+                        <button id="btn-nuevo-plato" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus-lg me-1"></i>Nuevo plato
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-filtros" class="row g-2 mb-3">
+                            <div class="col-sm-3">
+                                <select id="filtro-categoria" class="form-select form-select-sm">
+                                    <option value="">Todas las categorías</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="filtro-region" class="form-select form-select-sm">
+                                    <option value="">Todas las regiones</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input id="filtro-nombre" class="form-control" placeholder="Buscar por nombre…" />
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Plato</th>
+                                        <th>Categoría</th>
+                                        <th>Región</th>
+                                        <th>Horarios</th>
+                                        <th class="text-end">Precio</th>
+                                        <th>Estado</th>
+                                        <th>Foto</th>
+                                        <th class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-platos"></tbody>
+                            </table>
+                        </div>
+                        <div id="platos-vacio" class="text-center text-body-secondary py-4 d-none">
+                            <i class="bi bi-inbox fs-3 d-block"></i>
+                            No hay platos registrados.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ SECCIÓN: RECETAS / INGREDIENTES ============ -->
+            <section id="seccion-recetas" class="seccion d-none">
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-basket me-1"></i>Ingredientes</span>
+                        <button id="btn-nuevo-ingrediente" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus-lg me-1"></i>Nuevo ingrediente
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Unidad de medida</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-ingredientes"></tbody>
+                            </table>
+                        </div>
+                        <div id="ingredientes-vacio" class="text-center text-body-secondary py-4 d-none">
+                            <i class="bi bi-inbox fs-3 d-block"></i>
+                            No hay ingredientes registrados.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><i class="bi bi-journal-richtext me-1"></i>Receta de un plato</div>
+                    <div class="card-body">
+                        <div class="row g-2 align-items-end mb-3">
+                            <div class="col-md-5">
+                                <label for="select-plato-receta" class="form-label small">Plato</label>
+                                <select id="select-plato-receta" class="form-select form-select-sm">
+                                    <option value="">Seleccione un plato…</option>
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                <label class="form-label small">Asociar ingrediente (y cantidad)</label>
+                                <form id="form-asociar" class="row g-2">
+                                    <div class="col-7 col-md-6">
+                                        <select id="asociar-ingrediente" class="form-select form-select-sm" required>
+                                            <option value="">Ingrediente…</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-5 col-md-4">
+                                        <input id="asociar-cantidad" class="form-control form-control-sm"
+                                               type="number" step="0.01" min="0.01" placeholder="Cantidad" required />
+                                    </div>
+                                    <div class="col-12 col-md-2">
+                                        <button class="btn btn-sm btn-success w-100" type="submit">
+                                            <i class="bi bi-plus-lg"></i> Asociar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Ingrediente</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th>Unidad</th>
+                                        <th class="text-end">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-receta"></tbody>
+                            </table>
+                        </div>
+                        <div id="receta-vacio" class="text-center text-body-secondary py-4 d-none">
+                            <i class="bi bi-inbox fs-3 d-block"></i>
+                            Seleccione un plato para ver o editar su receta.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ SECCIÓN: GESTIÓN DEL MENÚ ============ -->
+            <section id="seccion-menus" class="seccion d-none">
+                <div class="card mb-3">
+                    <div class="card-header"><i class="bi bi-plus-circle me-1"></i>Crear menú</div>
+                    <div class="card-body">
+                        <form id="form-menu" class="row g-3">
+                            <div class="col-md-4">
+                                <label for="menu-nombre" class="form-label small">Nombre del menú</label>
+                                <input id="menu-nombre" class="form-control form-control-sm" required maxlength="100" />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="menu-categoria" class="form-label small">Categoría</label>
+                                <select id="menu-categoria" class="form-select form-select-sm" required></select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="menu-inicio" class="form-label small">Vigencia desde</label>
+                                <input id="menu-inicio" class="form-control form-control-sm" type="date" required />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="menu-fin" class="form-label small">Hasta</label>
+                                <input id="menu-fin" class="form-control form-control-sm" type="date" required />
+                            </div>
+                            <div class="col-md-1 d-grid">
+                                <button class="btn btn-sm btn-primary align-self-end" type="submit">
+                                    <i class="bi bi-plus-lg"></i> Crear
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-clock-history me-1"></i>Histórico de menús</span>
+                        <span id="badge-menu-activo" class="badge text-bg-secondary">Carta publicada: ninguna</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Vigencia</th>
+                                        <th>Estado</th>
+                                        <th class="text-end">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-menus"></tbody>
+                            </table>
+                        </div>
+                        <div id="menus-vacio" class="text-center text-body-secondary py-4 d-none">
+                            <i class="bi bi-inbox fs-3 d-block"></i>
+                            Aún no hay menús registrados.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ============ MODAL: PLATO (registrar / editar) ============ -->
+    <div class="modal fade" id="modal-plato" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="form-plato">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-plato-titulo">Registrar plato</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="plato-id" />
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="plato-nombre" class="form-label small">Nombre</label>
+                                <input id="plato-nombre" class="form-control form-control-sm" required minlength="1" maxlength="100" />
+                            </div>
+                            <div class="col-12">
+                                <label for="plato-descripcion" class="form-label small">Descripción</label>
+                                <textarea id="plato-descripcion" class="form-control form-control-sm" rows="2" maxlength="255"></textarea>
+                            </div>
+                            <div class="col-6">
+                                <label for="plato-precio" class="form-label small">Precio ($)</label>
+                                <input id="plato-precio" class="form-control form-control-sm" type="number"
+                                       step="0.01" min="0.01" required />
+                            </div>
+                            <div class="col-6">
+                                <label for="plato-estado" class="form-label small">Estado</label>
+                                <select id="plato-estado" class="form-select form-select-sm">
+                                    <option value="disponible">Disponible</option>
+                                    <option value="agotado">Agotado</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label for="plato-categoria" class="form-label small">Categoría</label>
+                                <select id="plato-categoria" class="form-select form-select-sm" required></select>
+                            </div>
+                            <div class="col-6">
+                                <label for="plato-region" class="form-label small">Región</label>
+                                <select id="plato-region" class="form-select form-select-sm" required></select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small mb-0">Horario de consumo</label>
+                                <div class="d-flex flex-wrap gap-3 ps-1 pt-1">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="plato-horario-desayuno" />
+                                        <label class="form-check-label small" for="plato-horario-desayuno">
+                                            <i class="bi bi-sunrise"></i> Desayuno
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="plato-horario-almuerzo" />
+                                        <label class="form-check-label small" for="plato-horario-almuerzo">
+                                            <i class="bi bi-sun"></i> Almuerzo
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="plato-horario-cena" />
+                                        <label class="form-check-label small" for="plato-horario-cena">
+                                            <i class="bi bi-moon-stars"></i> Cena
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <label for="plato-promocion" class="form-label small">Precio promocional ($, opcional)</label>
+                                <input id="plato-promocion" class="form-control form-control-sm" type="number"
+                                       step="0.01" min="0.01" placeholder="Debe ser menor al precio normal" />
+                            </div>
+                            <div class="col-5 d-flex align-items-end pb-1">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="plato-recomendado" />
+                                    <label class="form-check-label small" for="plato-recomendado">
+                                        <i class="bi bi-star-fill text-warning"></i> Recomendado
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="plato-foto" class="form-label small">Foto del plato (JPEG/PNG/WebP, máx. 5 MB)</label>
+                                <input id="plato-foto" class="form-control form-control-sm" type="file"
+                                       accept="image/jpeg,image/png,image/webp" />
+                                <small id="plato-foto-actual" class="text-body-secondary d-block mt-1"></small>
+                                <div class="text-center mt-2">
+                                    <img id="plato-foto-preview" src="assets/img/sin-foto.svg"
+                                         alt="Vista previa de la foto del plato"
+                                         class="foto-preview rounded border" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary" id="btn-guardar-plato">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: INGREDIENTE ============ -->
+    <div class="modal fade" id="modal-ingrediente" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form id="form-ingrediente">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registrar ingrediente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="ingrediente-nombre" class="form-label small">Nombre</label>
+                            <input id="ingrediente-nombre" class="form-control form-control-sm" required minlength="1" maxlength="100" />
+                        </div>
+                        <div>
+                            <label for="ingrediente-unidad" class="form-label small">Unidad de medida</label>
+                            <input id="ingrediente-unidad" class="form-control form-control-sm" required minlength="1" maxlength="30"
+                                   placeholder="kg, g, l, ml, unidades…" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: VER FOTO ============ -->
+    <div class="modal fade" id="modal-ver-foto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ver-foto-titulo">Foto del plato</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="ver-foto-img" class="img-fluid rounded" alt="Foto del plato" />
+                    <div id="ver-foto-vacio" class="alert alert-info mt-3 mb-0 d-none">
+                        Este plato aún no tiene una foto registrada.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: CONFIRMACIÓN ============ -->
+    <div class="modal fade" id="modal-confirmacion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmacion-titulo">¿Confirmar acción?</h5>
+                </div>
+                <div class="modal-body"><p id="confirmacion-mensaje" class="mb-0"></p></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" id="btn-confirmar-cancelar">Cancelar</button>
+                    <button type="button" class="btn btn-sm btn-danger" id="btn-confirmar-aceptar">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOASTS ============ -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toasts"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/platos.js"></script>
+    <script src="js/recetas.js"></script>
+    <script src="js/menus.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
